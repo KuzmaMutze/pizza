@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './scss/app.scss';
 import { Header } from './components/Header/Header';
 import { Home } from './pages/Home';
 import { Route } from 'react-router-dom';
 import { Cart } from './pages/Cart';
+import { getPizza } from './redux/app-reducer';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPizza());
+  }, []);
+
   return (
     <div className="App">
       <div className="wrapper">

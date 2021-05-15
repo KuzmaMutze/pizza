@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { PizzasType } from "../types/type";
 
 export const instance = axios.create({
-    baseURL: `http://localhost:3000/`,
+    baseURL: `http://localhost:3001/`,
 })
 
 let data = (param: any) => {
@@ -13,6 +13,6 @@ let data = (param: any) => {
 
 export const API = {
     getPizzaBlocks() { 
-        return data(instance.get<PizzasType>(`db.json`))
+        return data(instance.get<PizzasType>(`pizzas`))
     }
 }

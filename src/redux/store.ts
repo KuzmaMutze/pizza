@@ -1,9 +1,11 @@
 import {applyMiddleware, combineReducers, createStore, compose, Action} from "redux";
 import aapReducer from "./app-reducer";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
+import filterReducer from "./filter-reducer";
 
 let rootReducers = combineReducers({
-    app: aapReducer
+    app: aapReducer,
+    filter: filterReducer
 });
 
 type RootReducerType = typeof rootReducers; // (globalstate: AppStateType) => AppStateType

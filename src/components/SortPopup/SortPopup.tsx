@@ -1,14 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { SortPopupItem } from '../../types/type';
 
 type PropsType = {
-  items: Array<string>;
+  items: Array<SortPopupItem>;
 };
 
 export const SortPopup: React.FC<PropsType> = ({ items }) => {
   let [isActive, setIsActive] = useState(false);
   let [classActive, setClassActive] = useState(0);
   let sortRef = useRef<HTMLDivElement | null>(null);
-  const activeLable = items[classActive];
+  const activeLable = items[classActive].name;
+  console.log(activeLable);
 
   let toggleVisiblePopup = (index: number, bool: boolean) => {
     setClassActive(index);
@@ -51,7 +53,7 @@ export const SortPopup: React.FC<PropsType> = ({ items }) => {
                 onClick={() => toggleVisiblePopup(index, !isActive)}
                 className={index === classActive ? 'active' : ''}
                 key={index}>
-                {item}
+                {item.name}
               </li>
             ))}
           </ul>

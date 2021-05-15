@@ -1,12 +1,15 @@
+import classNames from 'classnames';
 import React, { useState } from 'react';
-import { PizzaType } from '../../types/type';
+import { PizzaCart, PizzaType } from '../../types/type';
 
 type PropsType = {
   pizza: PizzaType;
+  onClickAddPizza: (pizza: PizzaCart) => void;
 };
-export const PizzaBlock: React.FC<PropsType> = ({ pizza }) => {
+export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
+  let types = ['Тонкое', 'Традиционное'];
   let [isActiveSize, setIsActiveSize] = useState(0);
-  let [isActiveType, setIsActiveType] = useState(0);
+  let [isActiveType, setIsActiveType] = useState(pizza.types[0]);
 
   return (
     <div className="pizza-block">
@@ -14,12 +17,15 @@ export const PizzaBlock: React.FC<PropsType> = ({ pizza }) => {
       <h4 className="pizza-block__title">{pizza.name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {pizza.types.map((type, index) => (
+          {types.map((type, index) => (
             <li
-              className={isActiveType === index ? 'active' : ''}
+              className={classNames({
+                active: isActiveType === index,
+                disabled: !pizza.types.includes(index),
+              })}
               onClick={() => setIsActiveType(index)}
               key={index}>
-              {!type ? 'Традиционное' : 'Тонкое'}
+              {type}
             </li>
           ))}
         </ul>
@@ -36,7 +42,9 @@ export const PizzaBlock: React.FC<PropsType> = ({ pizza }) => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {pizza.price} ₽</div>
-        <div className="button button--outline button--add">
+        <div
+          onClick={() => onClickAddPizza({ pizza, isActiveSize, isActiveType })}
+          className="button button--outline button--add">
           <svg
             width="12"
             height="12"
