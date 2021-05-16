@@ -12,7 +12,7 @@ let data = (param: any) => {
 }
 
 export const API = {
-    getPizzaBlocks() { 
-        return data(instance.get<PizzasType>(`pizzas`))
+    getPizzaBlocks(category?: number| null, sortBy?: string) { 
+        return data(instance.get<PizzasType>(`pizzas?${category !== null ? `category=${category}` : ''}&_sort=${sortBy}&_order=desc`))
     }
 }

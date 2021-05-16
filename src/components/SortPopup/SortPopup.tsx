@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSortBy } from '../../redux/filter-reducer';
 import { SortPopupItem } from '../../types/type';
 
 type PropsType = {
@@ -6,15 +8,18 @@ type PropsType = {
 };
 
 export const SortPopup: React.FC<PropsType> = ({ items }) => {
+  let dispatch = useDispatch();
+  let sortRef = useRef<HTMLDivElement | null>(null);
+
   let [isActive, setIsActive] = useState(false);
   let [classActive, setClassActive] = useState(0);
-  let sortRef = useRef<HTMLDivElement | null>(null);
-  const activeLable = items[classActive].name;
-  console.log(activeLable);
 
-  let toggleVisiblePopup = (index: number, bool: boolean) => {
+  const activeLable = items[classActive].name;
+
+  let toggleVisiblePopup = (index: number, bool: boolean, type: string) => {
     setClassActive(index);
     setIsActive(bool);
+    dispatch(setSortBy(type));
   };
 
   let handleOutsideClick = (e: any) => {
@@ -50,7 +55,7 @@ export const SortPopup: React.FC<PropsType> = ({ items }) => {
           <ul>
             {items.map((item, index) => (
               <li
-                onClick={() => toggleVisiblePopup(index, !isActive)}
+                onClick={() => toggleVisiblePopup(index, !isActive, item.type)}
                 className={index === classActive ? 'active' : ''}
                 key={index}>
                 {item.name}

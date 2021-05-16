@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Categories } from '../components/Categories/Categories';
+import { LoaderPizzaBlock } from '../components/common/LoaderPizzaBlock';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import { SortPopup } from '../components/SortPopup/SortPopup';
-import { setFilter } from '../redux/filter-reducer';
+import { getPizza } from '../redux/app-reducer';
 import { AppStateType } from '../redux/store';
 import { PizzaCart, PizzaType } from '../types/type';
 
@@ -12,29 +13,46 @@ export const Home: React.FC<PropsType> = (props) => {
   let dispatch = useDispatch();
 
   let pizzas = useSelector((state: AppStateType) => state.app.pizzas);
+  let isLoaded = useSelector((state: AppStateType) => state.app.isLoaded);
+  let { category, sortBy } = useSelector((state: AppStateType) => state.filter);
 
   let addPizza = (pizza: PizzaCart) => {
     console.log(pizza);
   };
 
+  useEffect(() => {
+    dispatch(getPizza(category, sortBy));
+    console.log(category, sortBy);
+  }, [category, sortBy]);
+
   return (
     <div className="container">
       <div className="content__top">
         <Categories
-          items={['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}></Categories>
+          items={['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}></Categories>
         <SortPopup
           items={[
             { name: 'популярности', type: 'popular' },
             { name: 'цене', type: 'price' },
-            { name: 'алфавит', type: 'alphabet' },
+            { name: 'алфавит', type: 'name' },
           ]}></SortPopup>
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {pizzas.map((pizza: PizzaType) => (
-          <PizzaBlock onClickAddPizza={addPizza} pizza={pizza} />
-        ))}
-      </div>
+      {!isLoaded ? (
+        <div className="content__items">
+          {pizzas.map((pizza: PizzaType) => (
+            <PizzaBlock onClickAddPizza={addPizza} pizza={pizza} />
+          ))}
+        </div>
+      ) : (
+        <div className="content__items">
+          {Array(10)
+            .fill(0)
+            .map((item, index) => (
+              <LoaderPizzaBlock key={index} />
+            ))}
+        </div>
+      )}
     </div>
   );
 };

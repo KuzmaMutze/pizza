@@ -9,12 +9,6 @@ import { getPizza } from './redux/app-reducer';
 import { useDispatch } from 'react-redux';
 
 function App() {
-  let dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPizza());
-  }, []);
-
   return (
     <div className="App">
       <div className="wrapper">

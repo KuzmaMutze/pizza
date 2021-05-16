@@ -8,7 +8,8 @@ type PropsType = {
 };
 export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
   let types = ['Тонкое', 'Традиционное'];
-  let [isActiveSize, setIsActiveSize] = useState(0);
+  let size = [26, 30, 40];
+  let [isActiveSize, setIsActiveSize] = useState(pizza.sizes[0]);
   let [isActiveType, setIsActiveType] = useState(pizza.types[0]);
 
   return (
@@ -30,11 +31,14 @@ export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
           ))}
         </ul>
         <ul>
-          {pizza.sizes.map((size, index) => (
+          {size.map((size, index) => (
             <li
               key={index}
               onClick={() => setIsActiveSize(index)}
-              className={index === isActiveSize ? 'active' : ''}>
+              className={classNames({
+                active: size === isActiveSize,
+                disabled: !pizza.sizes.includes(size),
+              })}>
               {size}
             </li>
           ))}

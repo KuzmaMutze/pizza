@@ -1,14 +1,8 @@
 import { BaseThunkType, InferActionTypes } from './store';
-import { Dispatch } from 'redux';
-import { API } from '../api/api';
-import {PizzasType, PizzaType, SortPopupItem } from '../types/type';
 
 let initialState = {
     category: null as null | number,
-    sortBy: {
-        type: 'popular',
-        order: 'desc',
-    },
+    sortBy: 'popular'
 }
 export type InitialStateType = typeof initialState
 type ActionsType = InferActionTypes<typeof actions>
@@ -25,20 +19,23 @@ const filterReducer = (state = initialState, action: ActionsType): InitialStateT
         return{
             ...state,
             sortBy: action.sort
-        }
+        } 
     }
     return state;
 }
 
 export let actions = {
-    setSortByAC: (sort: any) => ({type: "SET_SORTBY", sort} as const) ,
-    setCategoryAC: (category: number) => ({type: "SET_CATEGORITES", category} as const) 
+    setSortByAC: (sort: string) => ({type: "SET_SORTBY", sort} as const) ,
+    setCategoryAC: (category: number | null) => ({type: "SET_CATEGORITES", category} as const) 
 }
 
 // thunk
 
-export let setFilter = (category: number): ThunkType => async (dispatch) => {
+export let setCategory = (category: number | null): ThunkType => async (dispatch) => {
     dispatch(actions.setCategoryAC(category))
+}
+export let setSortBy = (sort: string): ThunkType => async (dispatch) => {
+    dispatch(actions.setSortByAC(sort))
 }
 
 export default filterReducer; 
