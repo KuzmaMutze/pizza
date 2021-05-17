@@ -4,12 +4,19 @@ import { PizzaCart, PizzaType } from '../../types/type';
 
 type PropsType = {
   pizza: PizzaType;
-  onClickAddPizza: (pizza: PizzaCart) => void;
+  onClickAddPizza: (
+    id: number,
+    name: string,
+    imgURL: string,
+    price: number,
+    size: number,
+    type: string,
+  ) => void;
 };
 export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
   let types = ['Тонкое', 'Традиционное'];
   let size = [26, 30, 40];
-  let [isActiveSize, setIsActiveSize] = useState(pizza.sizes[0]);
+  let [isActiveSize, setIsActiveSize] = useState(0);
   let [isActiveType, setIsActiveType] = useState(pizza.types[0]);
 
   return (
@@ -36,7 +43,7 @@ export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
               key={index}
               onClick={() => setIsActiveSize(index)}
               className={classNames({
-                active: size === isActiveSize,
+                active: index === isActiveSize,
                 disabled: !pizza.sizes.includes(size),
               })}>
               {size}
@@ -47,7 +54,16 @@ export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {pizza.price} ₽</div>
         <div
-          onClick={() => onClickAddPizza({ pizza, isActiveSize, isActiveType })}
+          onClick={() =>
+            onClickAddPizza(
+              pizza.id,
+              pizza.name,
+              pizza.imageUrl,
+              pizza.price,
+              size[isActiveSize],
+              types[isActiveType],
+            )
+          }
           className="button button--outline button--add">
           <svg
             width="12"

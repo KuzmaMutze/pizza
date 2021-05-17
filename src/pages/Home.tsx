@@ -5,6 +5,7 @@ import { LoaderPizzaBlock } from '../components/common/LoaderPizzaBlock';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import { SortPopup } from '../components/SortPopup/SortPopup';
 import { getPizza } from '../redux/app-reducer';
+import { addPizzaToCards } from '../redux/card-reducer';
 import { AppStateType } from '../redux/store';
 import { PizzaCart, PizzaType } from '../types/type';
 
@@ -16,8 +17,23 @@ export const Home: React.FC<PropsType> = (props) => {
   let isLoaded = useSelector((state: AppStateType) => state.app.isLoaded);
   let { category, sortBy } = useSelector((state: AppStateType) => state.filter);
 
-  let addPizza = (pizza: PizzaCart) => {
-    console.log(pizza);
+  let addPizza = (
+    id: number,
+    name: string,
+    imgURL: string,
+    price: number,
+    size: number,
+    type: string,
+  ) => {
+    let obj = {
+      id,
+      name,
+      imgURL,
+      price,
+      size,
+      type,
+    };
+    dispatch(addPizzaToCards(obj));
   };
 
   useEffect(() => {
@@ -48,7 +64,7 @@ export const Home: React.FC<PropsType> = (props) => {
         <div className="content__items">
           {Array(10)
             .fill(0)
-            .map((item, index) => (
+            .map((_, index) => (
               <LoaderPizzaBlock key={index} />
             ))}
         </div>

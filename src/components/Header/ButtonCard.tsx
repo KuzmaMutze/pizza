@@ -1,12 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { AppStateType } from '../../redux/store';
 
 type PropsType = {};
 export const ButtonCard: React.FC<PropsType> = (props) => {
+  let { totalPrice, totalCount } = useSelector((state: AppStateType) => ({
+    totalPrice: state.card.totalPrice,
+    totalCount: state.card.totalCount,
+  }));
+
   return (
     <div className="header__cart">
       <NavLink to="/cart" className="button button--cart">
-        <span>520 ₽</span>
+        <span>{totalPrice} ₽</span>
         <div className="button__delimiter"></div>
         <svg
           width="18"
@@ -36,7 +43,7 @@ export const ButtonCard: React.FC<PropsType> = (props) => {
             strokeLinejoin="round"
           />
         </svg>
-        <span>3</span>
+        <span>{totalCount}</span>
       </NavLink>
     </div>
   );

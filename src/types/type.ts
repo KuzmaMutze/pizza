@@ -24,3 +24,12 @@ export type SortPopupItem = {
     name: string
     type: string
 }
+
+export type PizzaCard = {
+    id: number,
+    name: string,
+    imgURL: string,
+    price: number,
+    size: number,
+    type: string,
+}

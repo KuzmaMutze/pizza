@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { AppStateType } from '../../redux/store';
 
 import logo from './../../assets/img/pizza-logo.svg';
 import { ButtonCard } from './ButtonCard';
