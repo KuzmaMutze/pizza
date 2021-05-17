@@ -12,8 +12,9 @@ type PropsType = {
     size: number,
     type: string,
   ) => void;
+  inCartCount: number;
 };
-export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
+export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza, inCartCount }) => {
   let types = ['Тонкое', 'Традиционное'];
   let size = [26, 30, 40];
   let [isActiveSize, setIsActiveSize] = useState(0);
@@ -77,7 +78,7 @@ export const PizzaBlock: React.FC<PropsType> = ({ pizza, onClickAddPizza }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {inCartCount && <i>{inCartCount}</i>}
         </div>
       </div>
     </div>

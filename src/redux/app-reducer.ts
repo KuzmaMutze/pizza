@@ -1,6 +1,6 @@
 import { BaseThunkType, InferActionTypes } from './store';
 import { API } from '../api/api';
-import { PizzasType, PizzaType } from '../types/type';
+import { PizzaType } from '../types/type';
 
 let initialState = {
     pizzas: [] as any,

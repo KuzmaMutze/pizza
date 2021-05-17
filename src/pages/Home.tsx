@@ -14,6 +14,7 @@ export const Home: React.FC<PropsType> = (props) => {
   let dispatch = useDispatch();
 
   let pizzas = useSelector((state: AppStateType) => state.app.pizzas);
+  let cardItem = useSelector((state: AppStateType) => state.card.items);
   let isLoaded = useSelector((state: AppStateType) => state.app.isLoaded);
   let { category, sortBy } = useSelector((state: AppStateType) => state.filter);
 
@@ -57,7 +58,11 @@ export const Home: React.FC<PropsType> = (props) => {
       {!isLoaded ? (
         <div className="content__items">
           {pizzas.map((pizza: PizzaType) => (
-            <PizzaBlock onClickAddPizza={addPizza} pizza={pizza} />
+            <PizzaBlock
+              inCartCount={cardItem[pizza.id] && cardItem[pizza.id].items.length}
+              onClickAddPizza={addPizza}
+              pizza={pizza}
+            />
           ))}
         </div>
       ) : (
