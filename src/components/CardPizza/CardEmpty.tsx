@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import CardEmptyImg from '../../assets/img/empty-cart.png';
+
+import cardEmptyImg from '../../assets/img/empty-cart.png';
 
 type PropsType = {};
 export const CardEmpty: React.FC<PropsType> = (props) => {
@@ -13,7 +14,7 @@ export const CardEmpty: React.FC<PropsType> = (props) => {
           <br />
           Для того, чтобы заказать пиццу, перейди на главную страницу.
         </p>
-        <img src={CardEmptyImg} alt="Empty cart" />
+        <img src={cardEmptyImg} alt="Empty cart" />
         <NavLink to="/" className="button button--black">
           Вернуться назад
         </NavLink>

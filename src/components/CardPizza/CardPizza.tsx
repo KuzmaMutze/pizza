@@ -1,6 +1,7 @@
 import React from 'react';
 
 type PropsType = {
+  id: number;
   imgURL: string;
   name: string;
   price: number;
@@ -8,14 +9,21 @@ type PropsType = {
   type: string;
   totalPrice: number;
   totalCount: number;
+  onRemoveItem: (id: number) => void;
+  onMinus: (id: number) => void;
+  onPlus: (id: number) => void;
 };
 export const CardPizza: React.FC<PropsType> = ({
+  id,
   imgURL,
   name,
   totalPrice,
   size,
   type,
   totalCount,
+  onRemoveItem,
+  onMinus,
+  onPlus,
 }) => {
   return (
     <div className="cart__item">
@@ -29,7 +37,9 @@ export const CardPizza: React.FC<PropsType> = ({
         </p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          onClick={() => onMinus(id)}
+          className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
             height="10"
@@ -47,7 +57,9 @@ export const CardPizza: React.FC<PropsType> = ({
           </svg>
         </div>
         <b>{totalCount}</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <div
+          onClick={() => onPlus(id)}
+          className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
             height="10"
@@ -68,7 +80,7 @@ export const CardPizza: React.FC<PropsType> = ({
       <div className="cart__item-price">
         <b>{totalPrice} ₽</b>
       </div>
-      <div className="cart__item-remove">
+      <div onClick={() => onRemoveItem(id)} className="cart__item-remove">
         <div className="button button--outline button--circle">
           <svg
             width="10"

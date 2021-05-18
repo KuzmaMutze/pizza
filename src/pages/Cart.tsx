@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { CardEmpty } from '../components/CardPizza/CardEmpty';
 import { CardPizza } from '../components/CardPizza/CardPizza';
-import { clearCard } from '../redux/card-reducer';
+import { clearCard, plusPizza, minusPizza, removeCardPizza } from '../redux/card-reducer';
 import { AppStateType } from '../redux/store';
 
 type PropsType = {};
@@ -19,6 +19,19 @@ export const Cart: React.FC<PropsType> = (props) => {
     if (window.confirm('Вы действительно хотите очистить корзину?')) {
       dispatch(clearCard());
     }
+  };
+
+  let onRemoveItem = (id: number) => {
+    if (window.confirm('Вы действительно хотите удалить пиццу?')) {
+      dispatch(removeCardPizza(id));
+    }
+  };
+
+  let onMinus = (id: number) => {
+    dispatch(minusPizza(id));
+  };
+  let onPlus = (id: number) => {
+    dispatch(plusPizza(id));
   };
 
   return (
@@ -102,6 +115,7 @@ export const Cart: React.FC<PropsType> = (props) => {
               <div className="content__items">
                 {addedPizzas.map(({ id, imgURL, name, price, size, type }) => (
                   <CardPizza
+                    id={id}
                     totalPrice={items[id].totalPrice}
                     totalCount={items[id].items.length}
                     imgURL={imgURL}
@@ -109,6 +123,9 @@ export const Cart: React.FC<PropsType> = (props) => {
                     price={price}
                     size={size}
                     type={type}
+                    onRemoveItem={onRemoveItem}
+                    onMinus={onMinus}
+                    onPlus={onPlus}
                   />
                 ))}
               </div>
