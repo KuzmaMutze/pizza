@@ -3,9 +3,6 @@ import { PizzasType } from "../types/type";
 
 export const instance = axios.create({
     baseURL: `http://localhost:3000/`,
-    headers: {
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-    }
 })
 
 let data = (param: any) => {
