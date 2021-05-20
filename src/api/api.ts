@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { PizzasType } from "../types/type";
 
 export const instance = axios.create({
-    baseURL: `http://localhost:3000/`,
+    baseURL: `https://pizza-herokua.herokuapp.com/`,
 })
 
 let data = (param: any) => {
