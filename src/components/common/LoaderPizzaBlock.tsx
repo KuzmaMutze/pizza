@@ -3,7 +3,7 @@ import ContentLoader from 'react-content-loader';
 
 export const LoaderPizzaBlock = (props: any) => (
   <ContentLoader
-    style={{ margin: '0 40px' }}
+    style={{ margin: '0 30px 0 0' }}
     speed={2}
     width={280}
     height={460}
