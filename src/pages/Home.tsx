@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Categories } from '../components/Categories/Categories';
 import { LoaderPizzaBlock } from '../components/common/LoaderPizzaBlock';
@@ -42,9 +42,16 @@ export const Home: React.FC<PropsType> = (props) => {
     console.log(category, sortBy);
   }, [category, sortBy]);
 
+  let [burger, setBurger] = useState(false);
+
   return (
     <div className="container">
-      <div className="content__top">
+      <div className=" burger" onClick={() => setBurger(!burger)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div className={`content__top ${burger ? 'burgerActive' : ''}`}>
         <Categories
           items={['Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']}></Categories>
         <SortPopup
